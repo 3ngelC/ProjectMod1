@@ -57,37 +57,51 @@ namespace ProjectMod1
                     .AddChoices(new[] {
                         "Display Name", "Display Description", "Display Items", "Continue"
                     }));
-
-                switch (decisionPlayer1)
+                Dictionary<string, Action> action = new Dictionary<string, Action>
                 {
-                    case "Display Name":
-                        AnsiConsole.WriteLine("\nName:" + Name);                        
-                        break;
-                    case "Display Description":
-                        AnsiConsole.WriteLine("\nDescription:" + Description);                        
-                        break;
-                    case "Display Items":
-                        AnsiConsole.WriteLine("\nItems:");
-                        var table = new Table();
-                        table.AddColumn("Item");
-                        table.AddColumn("Description");
-                        table.AddColumn("Type");
+                    {"Display Name",() => DisplayName()},
+                    {"Display Description", () => DisplayDescription()},
+                    {"Display Items", () => DisplayItems()}
+                };
 
-                        foreach (var item in _items)
-                        {                        
-                            
-                            if (item != null)
-                            {
-                                table.AddRow(item.ItemName, item.ItemDescription, item.ItemType.ToString());
-                            }
-                        }
-                        AnsiConsole.Write(table);                        
-                        break;
-                    case "Continue":                        
-                        next = true;
-                        break;
+                if (action.ContainsKey(decisionPlayer1))
+                {
+                    action[decisionPlayer1]();
                 }
+                else if (decisionPlayer1 == "Continue")
+                {
+                    next = true;
+                }
+                
             } while (!next);
+        }
+        public void DisplayName()
+        {
+            AnsiConsole.WriteLine("\nName:" + Name);
+        }
+
+        public void DisplayDescription()
+        {
+            AnsiConsole.WriteLine("\nDescription:" + Description);
+        }
+
+        public void DisplayItems()
+        {
+            AnsiConsole.WriteLine("\nItems:");
+            var table = new Table();
+            table.AddColumn("Item");
+            table.AddColumn("Description");
+            table.AddColumn("Type");
+
+            foreach (var item in _items)
+            {
+
+                if (item != null)
+                {
+                    table.AddRow(item.ItemName, item.ItemDescription, item.ItemType.ToString());
+                }
+            }
+            AnsiConsole.Write(table);
         }
 
         public string[] ConverStringItemNamePlayer()
