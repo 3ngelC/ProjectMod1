@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "F2k5TGVMow5ZLuAfmpWV8RNe5tor5gm0KKWp2u5m/WA6K2+qbZlCYUb4WRUTz2B7ax2GKmLhxYLgq45yYXf93A==",
+  "success": true,
+  "projectFilePath": "D:\\ProgC\\Mod1\\Git\\c-sharp-basics\\angel-cachi\\basic-syntax\\ProjectMod1\\ProjectMod1\\ProjectMod1.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Angel.Cachi\\.nuget\\packages\\spectre.console\\0.48.0\\spectre.console.0.48.0.nupkg.sha512",
+    "C:\\Users\\Angel.Cachi\\.nuget\\packages\\spectre.console.cli\\0.48.0\\spectre.console.cli.0.48.0.nupkg.sha512",
+    "C:\\Users\\Angel.Cachi\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512"
+  ],
+  "logs": []
+}
