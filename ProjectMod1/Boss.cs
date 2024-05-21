@@ -45,54 +45,18 @@ namespace ProjectMod1
         }
         public void IntroduceNPC(int level)
         {
-            switch (level)
-            {
-                case 3:
-                    AnsiConsole.MarkupLine("[yellow]I will crush everything in my path.\nPrepare yourself to loss...[/]");
-                    break;
-                case 7:
-                    AnsiConsole.MarkupLine("[yellow]With my power I defeated entire legions.\n you will not be able to defeat me...[/]");
-                    break;
-                case 11:
-                    AnsiConsole.MarkupLine("[yellow]I am the king, you have no authority over me\nI will destroy you!\nYou will regret coming here[/]");
-                    break;
-                default:
-                    break;
-            }
+            string description = GameText.GetIntroduccionNPC(level);
 
+            AnsiConsole.MarkupLine($"[yellow]{description}[/]");            
         }
 
         public void AddItem(int level)
         {
-            switch (level)
-            {
-                case 3:
-                    string itemName = "Gold Armor";
-                    string itemDescription = "It gives you protection and regeneration of life";
-                    Types itemType = Types.Gold;
+            double name = Convert.ToDouble(level);
+            double description = name + 0.5;
 
-                    _items[_countItems] = new Item(itemName, itemDescription, itemType);
-                    _countItems++;
-                    break;
-                case 7:
-                    string itemName4 = "Blood Crown";
-                    string itemDescription4 = "Increases the damage of all your weapons";
-                    Types itemType4 = Types.BloodDragon;
-
-                    _items[_countItems] = new Item(itemName4, itemDescription4, itemType4);
-                    _countItems++;
-                    break;
-                case 11:
-                    string itemName6 = "Medal of Honor";
-                    string itemDescription6 = "Give you the most importan range in the kingdom";
-                    Types itemType6 = Types.Gold;
-
-                    _items[_countItems] = new Item(itemName6, itemDescription6, itemType6);
-                    _countItems++;
-                    break;                
-                default:
-                    break;
-            }
+            _items[_countItems] = new Item(GameText.GetItemInformation(name), GameText.GetItemInformation(description), ItemType.GetItemType(level));
+            _countItems++;            
         }
     }
 }

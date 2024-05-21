@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace ProjectMod1
 {
@@ -42,183 +43,43 @@ namespace ProjectMod1
 
         public void AddLocation()
         {
-            Location? locationLevel = null;
-            switch (_countLocations)
-            {
-                case 0:
-                    INonPlayerCharacter characterLevel = CreateCharacter();
-                    string name = "Village bakery";
-                    string description = "This place used to be the most visited by the entire town, a place where everyone could spend a pleasant time";
-                    locationLevel = new Location(name, description, characterLevel);
-                    _locations[_countLocations] = locationLevel;
-                    _countLocations++;                    
-                    break;
-                case 1:
-                    INonPlayerCharacter characterLevel1 = CreateCharacter();
-                    string name1 = "Forest charming";
-                    string description1 = "someone could be nearing you, watching you.....be careful";
-                    locationLevel = new Location(name1, description1, characterLevel1);
-                    _locations[_countLocations] = locationLevel;
-                    _countLocations++;                    
-                    break;
-                case 2:
-                    INonPlayerCharacter characterLevel2 = CreateCharacter();
-                    string name2 = "Downtown area";
-                    string description2 = "The downtown of the city could be crazy, in specific days it is crowded.";
-                    locationLevel = new Location(name2, description2, characterLevel2);
-                    _locations[_countLocations] = locationLevel;
-                    _countLocations++;                    
-                    break;
-                case 3:
-                    INonPlayerCharacter characterLevel3 = CreateCharacter();
-                    string name3 = "Enchanted Mountain";
-                    string description3 = "Wonderful and mysterious creatures live in this mountain.";
-                    locationLevel = new Location(name3, description3, characterLevel3);
-                    _locations[_countLocations] = locationLevel;
-                    _countLocations++;
-                    break;
-                case 4:
-                    INonPlayerCharacter characterLevel4 = CreateCharacter();
-                    string name4 = "Forest";
-                    string description4 = "Beautiful forest, with magical creatures";
-                    locationLevel = new Location(name4, description4, characterLevel4);
-                    _locations[_countLocations] = locationLevel;
-                    _countLocations++;
-                    break;
-                case 5:
-                    INonPlayerCharacter characterLevel5 = CreateCharacter();
-                    string name5 = "Tea room";
-                    string description5 = "A particular cafe in the town";
-                    locationLevel = new Location(name5, description5, characterLevel5);
-                    _locations[_countLocations] = locationLevel;
-                    _countLocations++;
-                    break;
-                case 6:
-                    INonPlayerCharacter characterLevel6 = CreateCharacter();
-                    string name6 = "Downtown area";
-                    string description6 = "The forest meadow, where the greenest grass grows.";
-                    locationLevel = new Location(name6, description6, characterLevel6);
-                    _locations[_countLocations] = locationLevel;
-                    _countLocations++;
-                    break;
-                case 7:
-                    INonPlayerCharacter characterLevel7 = CreateCharacter();
-                    string name7 = "Entrance to the Castle";
-                    string description7 = "Anyone who wants to enter the castle must pass through this point.";
-                    locationLevel = new Location(name7, description7, characterLevel7);
-                    _locations[_countLocations] = locationLevel;
-                    _countLocations++;
-                    break;
-                case 8:
-                    INonPlayerCharacter characterLevel8 = CreateCharacter();
-                    string name8 = "Castle kitchen";
-                    string description8 = "In this place the most delicious dishes are prepared.";
-                    locationLevel = new Location(name8, description8, characterLevel8);
-                    _locations[_countLocations] = locationLevel;
-                    _countLocations++;
-                    break;
-                case 9:
-                    INonPlayerCharacter characterLevel9 = CreateCharacter();
-                    string name9 = "Castle hall";
-                    string description9 = "A very busy place in the castle.";
-                    locationLevel = new Location(name9, description9, characterLevel9);
-                    _locations[_countLocations] = locationLevel;
-                    _countLocations++;
-                    break;
-                case 10:
-                    INonPlayerCharacter characterLevel10 = CreateCharacter();
-                    string name10 = "Main room";
-                    string description10 = "A place where they met to make the most important decisions of the kingdom.";
-                    locationLevel = new Location(name10, description10, characterLevel10);
-                    _locations[_countLocations] = locationLevel;
-                    _countLocations++;
-                    break;
-                case 11:
-                    INonPlayerCharacter characterLevel11 = CreateCharacter();
-                    string name11 = "King's Room";
-                    string description11 = "Place where the king lives.";
-                    locationLevel = new Location(name11, description11, characterLevel11);
-                    _locations[_countLocations] = locationLevel;
-                    _countLocations++;
-                    break;
-                
-            }
+            double namePosition = Convert.ToDouble(_countLocations);
+            double descriptionPosition = Convert.ToDouble(_countLocations) + 0.5;
+
+            string nameLocation = GameText.GetLocationInformation(namePosition);
+            string descriptionLocation = GameText.GetLocationInformation(descriptionPosition);
+            INonPlayerCharacter characterLevel = CreateCharacter();
+
+            Location locationLevel = new Location(nameLocation, descriptionLocation, characterLevel);
+            _locations[_countLocations] = locationLevel;
+            _countLocations++;         
 
         }
 
         public INonPlayerCharacter CreateCharacter()
         {
             INonPlayerCharacter? newCharacter = null;
-            switch (_countLocations) 
+            string name = GameText.GetCharacterInformation(Convert.ToDouble(_countLocations));
+            string description = GameText.GetLocationInformation(Convert.ToDouble(_countLocations)+0.5);
+
+            Dictionary<int, Action> characterByLevel = new Dictionary<int, Action>
             {
-                case 0:
-                    string name = "Renafh";
-                    string description = "Baker of the village";
-                    newCharacter = new YesNoNPC(name, description);
-                    break;
-                case 1:
-                    string name1 = "Wisel";
-                    string description1 = "whisper of the forest";
-                    newCharacter = new QuestionNPC(name1, description1);
-                    break;
-                case 2:
-                    string name2 = "Rick";
-                    string description2 = "A little boy";
-                    newCharacter = new YesNoNPC(name2, description2);
-                    break;
-                case 3:
-                    string name3 = "Destroyer";
-                    string description3 = "The strongest giant of the montains, expert warrior, he has a great ax instead of his left arm, he lost his arm in a battle against a dragon.";
-                    newCharacter = new Boss(name3, description3, Types.Fire);
-                    _bossWeakness[_countBoss] = Types.Fire;
-                    _countBoss++;
-                    break;
-                case 4:
-                    string name4 = "Allaf";
-                    string description4 = "Dwarf boss\r\nruler of the forest dwarves";
-                    newCharacter = new QuestionNPC(name4, description4);
-                    break;
-                case 5:
-                    string name5 = "Happy";
-                    string description5 = "happiest man, he loves coffee";
-                    newCharacter = new YesNoNPC(name5, description5);
-                    break;
-                case 6:
-                    string name6 = "Hawk";
-                    string description6 = "I'm the watch of the forest from the beginning";
-                    newCharacter = new QuestionNPC(name6, description6);
-                    break;
-                case 7:
-                    string name7 = "Bruskar";
-                    string description7 = "goblin warrior\r\nThe most powerful warrior of the tribe. He will do everything to defend the treasure he has accumulated.";
-                    newCharacter = new Boss(name7, description7, Types.Gold);
-                    _bossWeakness[_countBoss] = Types.Gold;
-                    _countBoss++;
-                    break;
-                case 8:
-                    string name8 = "Frango";
-                    string description8 = "village cook";
-                    newCharacter = new YesNoNPC(name8, description8);
-                    break;
-                case 9:
-                    string name9 = "James";
-                    string description9 = "King's guardian";
-                    newCharacter = new QuestionNPC(name9, description9);
-                    break;
-                case 10:
-                    string name10 = "Hugo";
-                    string description10 = "king's butler";
-                    newCharacter = new YesNoNPC(name10, description10);
-                    break;
-                case 11:
-                    string name11 = "Diabolic king";
-                    string description11 = "The king possessed by darkness, A demon with the help of a dragon cast a great spell on the king, dragging him into the darkness...";
-                    newCharacter = new Boss(name11, description11, Types.BloodDragon);
-                    _bossWeakness[_countBoss] = Types.BloodDragon;
-                    _countBoss++;
-                    break;
-                
-            }
+                {0,() => newCharacter = new YesNoNPC(name, description) },
+                {1, () => newCharacter = new QuestionNPC(name, description) },
+                {2,() => newCharacter = new YesNoNPC(name, description) },
+                {3,() => newCharacter = new Boss(name, description, Types.Fire) },
+                {4, () => newCharacter = new QuestionNPC(name, description) },
+                {5,() => newCharacter = new YesNoNPC(name, description) },
+                {6, () => newCharacter = new QuestionNPC(name, description) },
+                {7,() => newCharacter = new Boss(name, description, Types.Gold) },
+                {8,() => newCharacter = new YesNoNPC(name, description) },
+                {9, () => newCharacter = new QuestionNPC(name, description) },
+                {10,() => newCharacter = new YesNoNPC(name, description) },
+                {11,() => newCharacter = new Boss(name, description, Types.BloodDragon) },
+            };
+
+            characterByLevel[_countLocations]();            
+            
             return newCharacter;
         }
 
@@ -247,14 +108,14 @@ namespace ProjectMod1
             {
                 InteractionQuestionNPC(position);
                 AddLocation();                
-                Player1.DecisionsPlayer();
+                Player1.GetPlayerDecisions();
                 AnsiConsole.Clear();
             }
 
             if (_locations[position].Character is YesNoNPC)
             {
                 DecisionPlayerWithYesNoNPC(position);
-                Player1.DecisionsPlayer();
+                Player1.GetPlayerDecisions();
                 AddLocation();
                 AnsiConsole.Clear();
             }
@@ -265,7 +126,7 @@ namespace ProjectMod1
                 int bossNumber = GetBossNumber(position);
                 FightingWithBoss(position, itemsTypesSelected, bossNumber);
                 AddLocation();                
-                Player1.DecisionsPlayer();
+                Player1.GetPlayerDecisions();
                 AnsiConsole.Clear();
             }
         }
@@ -274,6 +135,7 @@ namespace ProjectMod1
         {
             Item itemLevel2 = Locations[position].Character.Items[indice];
             indice++;
+
             if (question.ToLower().Contains(answer.ToLower()))
             {
                 AnsiConsole.MarkupLine("[yellow]\n\n\nI will leave my hopes on you...\nI know I can trust you...[/]");
@@ -286,6 +148,7 @@ namespace ProjectMod1
         private void InteractionQuestionNPC(int position)
         {
             int indice = 0;
+
             switch(position)
             {
                 case 1:
@@ -337,6 +200,7 @@ namespace ProjectMod1
         private void DecisionPlayerWithYesNoNPC(int position)
         {
             int indice = 0;
+
             var decisionNPC1 = AnsiConsole.Prompt(
                new SelectionPrompt<string>()
                .Title("[green]What do you want to do?[/]")
@@ -360,9 +224,9 @@ namespace ProjectMod1
       
         public List<string> SelectItemsPlayer()
         {
-            string[] itemOptions = Player1.ConverStringItemNamePlayer();
+            string[] itemOptions = Player1.GetItemNamePlayer();
 
-            Player1.DecisionsPlayer();
+            Player1.GetPlayerDecisions();
             var seleccion = AnsiConsole.Prompt(
                 new MultiSelectionPrompt<string>()
                  .Title("\n\nSelect items to fight:")
