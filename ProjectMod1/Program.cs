@@ -1,73 +1,31 @@
 ﻿using Spectre.Console;
 using System.Reflection.Emit;
+using static ProjectMod1.GameText;
 
 namespace ProjectMod1
 {
     internal class Program
     {
         static void Main(string[] args)
-        {
-            var name = AnsiConsole.Ask<string>("What's your [green]name[/]?");
-            AnsiConsole.MarkupLine($"Hello [green]{name}[/]!");
+        {            
+            InfoGame player = GameAnsiConsole.GetIntroduccionGame();
+            GameEngine start = new GameEngine(player.Name, player.Description);
 
-            var description = AnsiConsole.Ask<string>("Please insert a description for your character:");
-
-            GameEngine start = new GameEngine(name, description);
-
-            start.GetGameTitle();
-            start.GetStartDescription();            
-
-            ///Level 0
-            start.AddLocation();
+            GameAnsiConsole.GetGameTitle();
+            GameAnsiConsole.GetStartDescription();            
             int position = 0;
-            start.SettingLocation(position);
-            start.InteraccionPlayerWithNPC(position);;
-            position++;
-            //Level1
-            start.SettingLocation(position);
-            start.InteraccionPlayerWithNPC(position);
-            position++;
-            //Level2
-            start.SettingLocation(position);
-            start.InteraccionPlayerWithNPC(position);
-            position++;            
-            //Level 3
-            start.SettingLocation(position);
-            start.InteraccionPlayerWithNPC(position);
-            position++;
-            //level 4
-            start.SettingLocation(position);
-            start.InteraccionPlayerWithNPC(position);
-            position++;
-            //level5
-            start.SettingLocation(position);
-            start.InteraccionPlayerWithNPC(position);
-            position++;
-            //level 6
-            start.SettingLocation(position);
-            start.InteraccionPlayerWithNPC(position);
-            position++;
-            //level 7
-            start.SettingLocation(position);
-            start.InteraccionPlayerWithNPC(position);
-            position++;;
-            //level 8
-            start.SettingLocation(position);
-            start.InteraccionPlayerWithNPC(position);
-            position++;
-            //level 9
-            start.SettingLocation(position);
-            start.InteraccionPlayerWithNPC(position);
-            position++;
-            //level 10
-            start.SettingLocation(position);
-            start.InteraccionPlayerWithNPC(position);
-            position++;
-            //level 11
-            start.SettingLocation(position);
-            start.InteraccionPlayerWithNPC(position);
-            start.GetFinalDescription();          
+            start.AddLocation();
+            while (position <= 11)
+            {
+                start.SettingLocation(position);
+                start.InteraccionPlayerWithNPC(position);
+                position++;
 
+                if (position == 11)
+                {
+                    GameAnsiConsole.GetFinalDescription();
+                }
+            }        
         }
     }
 }

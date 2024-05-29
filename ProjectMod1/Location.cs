@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProjectMod1
 {
-    internal class Location
+    public class Location
     {
         private readonly string _nameLocation;
         private readonly string _descriptionLocation;

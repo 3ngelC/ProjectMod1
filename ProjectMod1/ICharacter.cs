@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectMod1
 {
-    internal interface ICharacter
+    public interface ICharacter
     {
         string Name { get; }
         string Description { get; }

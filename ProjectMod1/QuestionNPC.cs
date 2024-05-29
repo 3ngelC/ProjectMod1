@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ProjectMod1.GameText;
 
 namespace ProjectMod1
 {
@@ -48,11 +49,12 @@ namespace ProjectMod1
 
         public void AddItem(int level)
         {
-            double name = Convert.ToDouble(level);
-            double description = name + 0.5;
+            InfoGame itemInfo = GetItemInformation(level);
 
-            _items[_countItems] = new Item(GameText.GetItemInformation(name), GameText.GetItemInformation(description), ItemType.GetItemType(level));
-            _countItems++;            
+            _items[_countItems] = new Item(itemInfo.Name, itemInfo.Description, ItemType.GetItemType(level));
+            _countItems++;
         }
+
+
     }
 }

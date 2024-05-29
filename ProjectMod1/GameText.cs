@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Spectre.Console;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,121 +11,114 @@ namespace ProjectMod1
 {
     public class GameText
     {
+        public struct InfoGame
+        {
+            public string Name { get; set; }
+            public string Description { get; set; }
+
+            public InfoGame(string name, string description)
+            {
+                Name = name;
+                Description = description;
+            }
+        }
+        
+
+       
         public static string GetIntroduccionNPC(int position)
         {
             Dictionary<int, string> introduction = new Dictionary<int, string>
             {
-                {0, "I'm and old man, that lives in this town please help me to find my cat"},
-                {2, "I'm lost, please help me to find my parents!" },
-                {5, "Help me set up a wonderful table to have an extraordinary coffee!\nyou will be rewarded...or maybe not" },
-                {8, "]Please help me defeat the goblin that took over our warehouse." },
-                {10, "Please help me save the princess" },
-                {6, "If you want me help to guide your path...\n you will have to give me the correct answer...\n are you ready?\n here I go...." },
-                {3, "I will crush everything in my path.\nPrepare yourself to loss..." },
-                {7, "With my power I defeated entire legions.\n you will not be able to defeat me..." },
-                {11, "I am the king, you have no authority over me\nI will destroy you!\nYou will regret coming here" }
+                {0, Constants.introduccionNPC0},
+                {2, Constants.introduccionNPC2},
+                {5, Constants.introduccionNPC5 },
+                {8, Constants.introduccionNPC8},
+                {10, Constants.introduccionNPC10},
+                {6, Constants.introduccionNPC6},
+                {3, Constants.introduccionNPC3},
+                {7, Constants.introduccionNPC7},
+                {11, Constants.introduccionNPC11}
             };
 
             return introduction[position];
         }
 
-        public static string GetItemInformation(double position)
+        public static InfoGame GetItemInformation(int position)
         {
-            Dictionary<double, string> itemInfo = new Dictionary<double, string>
+            Dictionary<int, InfoGame> itemInfo = new Dictionary<int, InfoGame>
             {
-                {0, "armor cloak" },
-                {0.5, "A magic cloak gives you more resistance against physical damage" },
-                {1,"Dagger" },
-                {1.5, "Dagger created in the Hellrock volcano" },
-                {2, "Gold Sword" },
-                {2.5, "Sword that was created by King Midas" },
-                {3, "Gold Armor" },
-                {3.5,  "It gives you protection and regeneration of life"},
-                {4, "Fire Knife" },
-                {4.5, "The knife most faster of the world, the enemies will don't know who cut them" },
-                {5, "Invisibility cloak" },
-                {5.5, "Disappears from the sight of all mortals" },
-                {6, "Sacred Arrows" },
-                {6.5, "These arrows always reach their target" },
-                {7, "Blood Crown" },
-                {7.5, "Increases the damage of all your weapons" },
-                {8, "Metal Gloves" },
-                {8.5, "Increases the power of all your blows" },
-                {9, "Power Spear" },
-                {9.5, "This spear was created by the grandmasters to defeat everyone" },
-                {10, "Dragon Blood Chains" },
-                {10.5, "An ancient dragon gave its blood to create powerful weapons" },
-                {11, "Medal of Honor" },
-                {11.5, "Give you the most importan range in the kingdom" }                
+                {0, new InfoGame(Constants.itemName0, Constants.itemDescription0)},                
+                {1, new InfoGame(Constants.itemName1, Constants.itemDescription1)},                
+                {2, new InfoGame(Constants.itemName2, Constants.itemDescription2)},                
+                {3, new InfoGame(Constants.itemName3, Constants.itemDescription3)},                
+                {4, new InfoGame(Constants.itemName4, Constants.itemDescription4)},                
+                {5, new InfoGame(Constants.itemName5, Constants.itemDescription5)},                
+                {6, new InfoGame(Constants.itemName6, Constants.itemDescription6)},                
+                {7, new InfoGame(Constants.itemName7, Constants.itemDescription7)},                
+                {8, new InfoGame(Constants.itemName8, Constants.itemDescription8)},                
+                {9, new InfoGame(Constants.itemName9, Constants.itemDescription9)},                
+                {10, new InfoGame(Constants.itemName10, Constants.itemDescription10)},                
+                {11, new InfoGame(Constants.itemName11, Constants.itemDescription11)},                                
             };
 
             return itemInfo[position];
         }
 
-        public static string GetLocationInformation(double position)
+        public static InfoGame GetLocationInformation(int position)
         {
-            Dictionary<double, string> LocationInfo = new Dictionary<double, string>
+            Dictionary<int, InfoGame> LocationInfo = new Dictionary<int, InfoGame>
             {
-                {0, "Village bakery" },
-                {0.5, "This place used to be the most visited by the entire town, a place where everyone could spend a pleasant time" },
-                {1,"Forest charming" },
-                {1.5, "someone could be nearing you, watching you.....be careful" },
-                {2, "Downtown area" },
-                {2.5, "The downtown of the city could be crazy, in specific days it is crowded." },
-                {3, "Enchanted Mountain" },
-                {3.5, "Wonderful and mysterious creatures live in this mountain." },
-                {4, "Forest" },
-                {4.5, "Beautiful forest, with magical creatures" },
-                {5, "Tea room" },
-                {5.5, "A particular cafe in the town" },
-                {6, "Downtown area" },
-                {6.5, "The forest meadow, where the greenest grass grows." },
-                {7, "Entrance to the Castle" },
-                {7.5, "Anyone who wants to enter the castle must pass through this point." },
-                {8, "Castle kitchen" },
-                {8.5, "In this place the most delicious dishes are prepared." },
-                {9, "Castle hall" },
-                {9.5, "A very busy place in the castle." },
-                {10, "Main room" },
-                {10.5, "A place where they met to make the most important decisions of the kingdom." },
-                {11, "King's Room" },
-                {11.5, "Place where the king lives." }
+                {0, new InfoGame(Constants.locationName0, Constants.locationDescription0)},                
+                {1, new InfoGame(Constants.locationName1, Constants.locationDescription1)},                
+                {2, new InfoGame(Constants.locationName2, Constants.locationDescription2)},                
+                {3, new InfoGame(Constants.locationName3, Constants.locationDescription3)},                
+                {4, new InfoGame(Constants.locationName4, Constants.locationDescription4)},                
+                {5, new InfoGame(Constants.locationName5, Constants.locationDescription5)},                
+                {6, new InfoGame(Constants.locationName6, Constants.locationDescription6)},                
+                {7, new InfoGame(Constants.locationName7, Constants.locationDescription7)},                
+                {8, new InfoGame(Constants.locationName8, Constants.locationDescription8)},                
+                {9, new InfoGame(Constants.locationName9, Constants.locationDescription9)},                
+                {10, new InfoGame(Constants.locationName10, Constants.locationDescription10)},                
+                {11, new InfoGame(Constants.locationName11, Constants.locationDescription11)},                
             };
 
             return LocationInfo[position];
         }
 
-        public static string GetCharacterInformation(double position)
+        public static InfoGame GetCharacterInformation(int position)
         {
-            Dictionary<double, string> CharacterInfo = new Dictionary<double, string>
+            Dictionary<int, InfoGame> CharacterInfo = new Dictionary<int, InfoGame>
             {
-                {0,  "Renafh"},
-                {0.5, "Baker of the village" },
-                {1, "Wisel" },
-                {1.5, "whisper of the forest" },
-                {2, "Rick" },
-                {2.5, "A little boy" },
-                {3, "Destroyer"},
-                {3.5, "The strongest giant of the montains, expert warrior, he has a great ax instead of his left arm, he lost his arm in a battle against a dragon." },
-                {4, "Allaf" },
-                {4.5, "Dwarf boss\r\nruler of the forest dwarves" },
-                {5, "Happy" },
-                {5.5, "happiest man, he loves coffee" },
-                {6, "Hawk" },
-                {6.5, "I'm the watch of the forest from the beginning" },
-                {7, "Bruskar" },
-                {7.5, "goblin warrior\r\nThe most powerful warrior of the tribe. He will do everything to defend the treasure he has accumulated." },
-                {8, "Frango" },
-                {8.5, "village cook" },
-                {9, "James" },
-                {9.5, "King's guardian" },
-                {10, "Hugo" },
-                {10.5, "king's butler" },
-                {11, "Diabolic king" },
-                {11.5, "The king possessed by darkness, A demon with the help of a dragon cast a great spell on the king, dragging him into the darkness..." }
+                {0, new InfoGame(Constants.characterName0, Constants.characterDescription0)},                
+                {1, new InfoGame(Constants.characterName1, Constants.characterDescription1)},                
+                {2, new InfoGame(Constants.characterName2, Constants.characterDescription2)},               
+                {3, new InfoGame(Constants.characterName3, Constants.characterDescription3)},                
+                {4, new InfoGame(Constants.characterName4, Constants.characterDescription4)},                
+                {5, new InfoGame(Constants.characterName5, Constants.characterDescription5)},                
+                {6, new InfoGame(Constants.characterName6, Constants.characterDescription6)},                
+                {7, new InfoGame(Constants.characterName7, Constants.characterDescription7)},                
+                {8, new InfoGame(Constants.characterName8, Constants.characterDescription8)},               
+                {9, new InfoGame(Constants.characterName9, Constants.characterDescription9)},                
+                {10, new InfoGame(Constants.characterName10, Constants.characterDescription10)},                
+                {11, new InfoGame(Constants.characterName11, Constants.characterDescription11)},                
             };
 
             return CharacterInfo[position];
         }
+
+        public static InfoGame GetQuestionsNPC(int position)
+        {
+            Dictionary<int, InfoGame> Questions = new Dictionary<int, InfoGame>
+            {
+                {1, new InfoGame(Constants.question1, Constants.answer1)},
+                {4, new InfoGame(Constants.question2, Constants.answer2)},
+                {6, new InfoGame(Constants.question3, Constants.answer3)},
+                {9, new InfoGame(Constants.question4, Constants.answer4)},
+            };
+
+            return Questions[position];
+        }
+
+        
     }
 }
