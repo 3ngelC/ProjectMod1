@@ -45,77 +45,69 @@ namespace ProjectMod1
         }
                 
 
-        public void DecisionsPlayer()
+        public void GetPlayerDecisions()
         {
             bool next = false;
+
             do
             {
-                var decisionPlayer1 = AnsiConsole.Prompt(
-                    new SelectionPrompt<string>()
-                    .Title("[green]\n\nPlayer information[/]")
-                    .PageSize(10)
-                    .AddChoices(new[] {
-                        "Display Name", "Display Description", "Display Items", "Continue"
-                    }));
+                string decisionPlayer1 = PromptPlayerAction();
 
-                switch (decisionPlayer1)
+                Dictionary<string, Action> action = new Dictionary<string, Action>
                 {
-                    case "Display Name":
-                        AnsiConsole.WriteLine("\nName:" + Name);                        
-                        break;
-                    case "Display Description":
-                        AnsiConsole.WriteLine("\nDescription:" + Description);                        
-                        break;
-                    case "Display Items":
-                        AnsiConsole.WriteLine("\nItems:");
-                        var table = new Table();
-                        table.AddColumn("Item");
-                        table.AddColumn("Description");
-                        table.AddColumn("Type");
+                    {"Display Name",() => DisplayName()},
+                    {"Display Description", () => DisplayDescription()},
+                    {"Display Items", () => DisplayItems()},
+                    {"Continue", () => next = true}
+                };
 
-                        foreach (var item in _items)
-                        {                        
-                            
-                            if (item != null)
-                            {
-                                table.AddRow(item.ItemName, item.ItemDescription, item.ItemType.ToString());
-                            }
-                        }
-                        AnsiConsole.Write(table);                        
-                        break;
-                    case "Continue":                        
-                        next = true;
-                        break;
-                }
+                action[decisionPlayer1]();               
+                
             } while (!next);
         }
 
-        public string[] ConverStringItemNamePlayer()
+        public string PromptPlayerAction()
         {
+            return GameAnsiConsole.CreateDecisionPlayer("Player information", "Display Name", "Display Description", "Display Items", "Continue");            
+        }
+
+        public void DisplayName()
+        {
+            AnsiConsole.WriteLine("\nName:" + Name);
+        }
+
+        public void DisplayDescription()
+        {
+            AnsiConsole.WriteLine("\nDescription:" + Description);
+        }
+
+        public void DisplayItems()
+        {
+            AnsiConsole.WriteLine("\nItems:");
             
-            string[] itemNames = new string[_countItemsPlayer];
-            for (int i = 0; i < _countItemsPlayer; i++)
-            {
-                itemNames[i] = Items[i].ItemName;
-            }
-            return itemNames;
+            var table = GameAnsiConsole.CreateTable("Item", "Description", "Type");
+
+            GameAnsiConsole.AddItemsTable(table, _items);            
+            AnsiConsole.Write(table);
+        }                
+
+        public string[] GetItemNamePlayer()
+        {                     
+            return _items
+                    .Where(item => item != null && item.ItemName != null)
+                    .Select(item => item.ItemName)
+                    .ToArray();
         }
 
         public List<Types> ChekingItemsType(List<string> itemsSelected)
-        {
-            List<Types> itemTypesSelected = new List<Types>();
-            for(int i =0; i < _countItemsPlayer; i++)
-            {
-                string itemName = Items[i].ItemName;
-                foreach(var item in itemsSelected)
-                {
-                    if (itemName == item)
-                    {                        
-                        itemTypesSelected.Add(Items[i].ItemType);
-                    }
-                }
-            }
-            return itemTypesSelected;
+        {         
+            var itemTypesSelected = from item in _items
+                                    where item != null && item.ItemName != null
+                                    join itemNames in itemsSelected
+                                    on item.ItemName equals itemNames                                    
+                                    select item.ItemType;
+
+            return itemTypesSelected.ToList();
         }
 
     }

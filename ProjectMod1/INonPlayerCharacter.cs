@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace ProjectMod1
 {
-    internal interface INonPlayerCharacter : ICharacter
+    
+    public interface INonPlayerCharacter : ICharacter
     {
         
         void IntroduceNPC(int level);
 
         void AddItem(int level);
+        
     }
 }

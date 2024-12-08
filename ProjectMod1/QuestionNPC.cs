@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ProjectMod1.GameText;
 
 namespace ProjectMod1
 {
@@ -39,49 +40,21 @@ namespace ProjectMod1
 
         public void IntroduceNPC(int level)
         {
-            AnsiConsole.MarkupLine("[yellow]If you want me help to guide your path...\n you will have to give me the correct answer...\n are you ready?\n here I go....[/]");            
+            int positionDescription = 6;
+            string description = GameText.GetIntroduccionNPC(positionDescription);
+
+            AnsiConsole.MarkupLine($"[yellow]{description}[/]");            
 
         }
 
         public void AddItem(int level)
         {
-            switch (level)
-            {
-                case 1:
-                    string itemName = "Dagger";
-                    string itemDescription = "Dagger created in the Hellrock volcano";
-                    Types itemType = Types.Fire;
+            InfoGame itemInfo = GetItemInformation(level);
 
-                    _items[_countItems] = new Item(itemName, itemDescription, itemType);
-                    _countItems++;
-                    break;
-                case 4:
-                    string itemName4 = "Fire Knife";
-                    string itemDescription4 = "The knife most faster of the world, the enemies will don't know who cut them";
-                    Types itemType4 = Types.Fire;
-
-                    _items[_countItems] = new Item(itemName4, itemDescription4, itemType4);
-                    _countItems++;
-                    break;
-                case 6:
-                    string itemName6 = "Sacred Arrows";
-                    string itemDescription6 = "These arrows always reach their target";
-                    Types itemType6 = Types.Silver;
-
-                    _items[_countItems] = new Item(itemName6, itemDescription6, itemType6);
-                    _countItems++;
-                    break;
-                case 9:
-                    string itemName9 = "Power Spear";
-                    string itemDescription9 = "This spear was created by the grandmasters to defeat everyone";
-                    Types itemType9 = Types.Gold;
-
-                    _items[_countItems] = new Item(itemName9, itemDescription9, itemType9);
-                    _countItems++;
-                    break;
-                default:
-                    break;
-            }
+            _items[_countItems] = new Item(itemInfo.Name, itemInfo.Description, ItemType.GetItemType(level));
+            _countItems++;
         }
+
+
     }
 }

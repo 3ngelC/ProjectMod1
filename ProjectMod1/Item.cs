@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ProjectMod1
 {
     
-    internal class Item
+    public class Item
     {
         private readonly string _itemName;
         private readonly string _itemDescription;
@@ -34,7 +34,5 @@ namespace ProjectMod1
         { 
             get { return _itemType; } 
         }
-
-
     }
 }
